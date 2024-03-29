@@ -1,0 +1,12 @@
+<sfc_routes xmlns="http://carleton.ca/yang/sfc-route">
+    <route>
+        <protocol>icmp,tcp</protocol>
+        <in_iface>eth0</in_iface>
+        <out_iface>eth1</out_iface>
+    </route>
+    <route>
+        <protocol>icmp,udp</protocol>
+        <in_iface>eth0</in_iface>
+        <out_iface>eth2</out_iface>
+    </route>
+</sfc_routes>
