@@ -1,4 +1,4 @@
-# SDN-based SFC with NSM
+# SDN-based SFC with Kernel type Network Interfaces using NSM
 
 ###Requirments to deploy the packet forwarder
 * [Sysrepo python](https://github.com/sysrepo/sysrepo-python)
