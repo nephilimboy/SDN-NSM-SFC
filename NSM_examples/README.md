@@ -40,3 +40,13 @@ perform any action on the packets. The user is free to use any customized Docker
 * Dump NSM and the deployed SFC scenario logs
   * ```kubectl cluster-info dump -n nsm-system --output-directory nsm-dump```
   * ```kubectl cluster-info dump -n ns-carleton-services --output-directory nsm-dump```
+
+### Example scenario
+
+#### 1Middlebox
+
+![1middlebox](example_1middlebox.png)
+
+#### 2Middleboxes with multiple Kernel-type interfaces 
+
+![2middlebox](example_2middleboxes.png)
