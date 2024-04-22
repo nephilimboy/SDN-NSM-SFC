@@ -9,7 +9,23 @@
 
 * [libnetconf](https://github.com/CESNET/libnetconf)
 
+* Python 3.10
+  * scapy lib
+  * sysrepo python lib
+  * libyang python lib
+
 * Any SDN controller that supports NetConf 
+
+
+### Run Packet Forwarder
+
+* Add sfc-route YANG to the Sysrepo
+* Import the simpleRoute.xml to the Sysrepo
+  * Modify the protocol if needed
+  * Modify the network interfaces' name if needed
+* Run the main.py (in the packet_forwarder folder)
+  * Python3.10 main.py
+
 
 ### NSM_example folder
 
