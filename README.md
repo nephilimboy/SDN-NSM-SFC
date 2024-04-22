@@ -23,7 +23,7 @@
 * Import the simpleRoute.xml to the Sysrepo
   * Modify the protocol if needed
   * Modify the network interfaces' name if needed
-* Run the main.py (in the packet_forwarder folder)
+* Modify the network interfaces' name in the code (if needed) and run the main.py (in the packet_forwarder folder)
   * Python3.10 main.py
 
 
