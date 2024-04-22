@@ -19,8 +19,8 @@
 
 ### Run Packet Forwarder
 
-* Add sfc-route YANG to the Sysrepo
-* Import the simpleRoute.xml to the Sysrepo using the SDN controller
+* Add sfc-route YANG (packet_forwarder folder) to the Sysrepo
+* Import the simpleRoute.xml (in the packet_forwarder folder) to the Sysrepo using the SDN controller
   * Modify the protocol if needed
   * Modify the network interfaces' name if needed
 * Modify the network interfaces' name in the code (if needed) and run the main.py (in the packet_forwarder folder)
