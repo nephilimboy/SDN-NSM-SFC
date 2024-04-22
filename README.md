@@ -1,4 +1,4 @@
-# SDN-based SFC with Kernel type Network Interfaces for MiddleBoxes Using Network Service Meash (NSM)
+# SDN-Based Service Function Chaining in Kubernetes Using Network Service Mesh With Kernel-Type Network Interfaces for MiddleBoxes for Industrial IoT
 
 ### Requirments to deploy the packet forwarder
 * [Sysrepo python](https://github.com/sysrepo/sysrepo-python)
