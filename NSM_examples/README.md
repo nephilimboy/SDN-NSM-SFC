@@ -22,3 +22,21 @@ perform any action on the packets. The user is free to use any customized Docker
 * Download and move the NSM_example folder to the Kubernetes master node
   * ```cd 1MiddleBox/``` or ```cd 2MiddleBox/ ```
   * ```kubectl apply -k ./```
+* Make sure to add routing in the sender and receiver
+  * ```apt install iproute2 -y```
+  * ```ethtool -K INTERFACE_NAME tx off```
+  * ```ip route add DESTINATION_IP via INTERFACE_IP dev INTERFACE_NAME```
+    * Example ```ip route add 172.16.20.0/24 via 172.16.1.101 dev nsm-1```
+
+### Useful commands
+* Delete NSM
+  * ```WH=$(kubectl get pods -l app=admission-webhook-k8s -n nsm-system --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')```
+  * ```kubectl delete mutatingwebhookconfiguration ${WH}```
+  * ```kubectl delete ns nsm-system```
+* Delete the deployed SFC scenario
+  * ```kubectl delete ns ns-carleton-services```
+* Execute commands inside the middleboxes 
+  * ```kubectl exec -it -n ns-carleton-services  POD_NAME --container CONTAINER_NAME -- /bin/bash```
+* Dump NSM and the deployed SFC scenario logs
+  * ```kubectl cluster-info dump -n nsm-system --output-directory nsm-dump```
+  * ```kubectl cluster-info dump -n ns-carleton-services --output-directory nsm-dump```
