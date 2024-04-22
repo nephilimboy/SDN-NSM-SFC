@@ -12,6 +12,7 @@
 
 ## Folder structure
     .
+    ├── NSM_examples         # SFC examples with kernel-type interfaces using NSM
     ├── pakcet_forwarder      
     │   ├── main.py          # Packet forwarder code
     │   ├── sfc-route.yang   # Yang model for packet forwarder
