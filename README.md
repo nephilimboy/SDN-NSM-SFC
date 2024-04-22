@@ -9,6 +9,8 @@
 
 * [libnetconf](https://github.com/CESNET/libnetconf)
 
+* Any SDN controller that supports NetConf 
+
 ### NSM_example folder
 
 This folder provides simple SFC scenarios with Kernel-type network interfaces for middleboxes using NSM.
