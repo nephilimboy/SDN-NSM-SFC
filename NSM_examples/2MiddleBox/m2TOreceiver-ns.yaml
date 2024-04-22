@@ -1,0 +1,7 @@
+---
+apiVersion: networkservicemesh.io/v1
+kind: NetworkService
+metadata:
+  name: m2-t-rec-serv
+spec:
+  payload: ETHERNET

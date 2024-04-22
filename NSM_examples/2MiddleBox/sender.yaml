@@ -1,0 +1,24 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sender1
+  labels:
+    app: sender1
+  annotations:
+    networkservicemesh.io: kernel://send-t-m1-serv/nsm-1
+spec:
+  containers:
+  - name: sender
+    image: nephilimboy/bvnf12netconf
+    securityContext:
+        privileged: true
+        capabilities:
+          add:
+            - NET_ADMIN
+    imagePullPolicy: IfNotPresent
+    #NetConf Server's port inside the pod
+    ports:
+    - containerPort: 830
+    command: ["/bin/bash", "-c", "trap : TERM INT; sleep infinity & wait"]
+    

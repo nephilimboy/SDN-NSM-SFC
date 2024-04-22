@@ -1,0 +1,108 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nse-middlebox-1
+  labels:
+    app: middlebox-1
+spec:
+  selector:
+    matchLabels:
+      app: middlebox-1
+  template:
+    metadata:
+      labels:
+        app: middlebox-1
+        "spiffe.io/spiffe-id": "true"
+    spec:
+      containers:
+      - name: nse1
+        image: ghcr.io/networkservicemesh/cmd-nse-icmp-responder:v1.11.0
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: SPIFFE_ENDPOINT_SOCKET
+            value: unix:///run/spire/sockets/agent.sock
+          - name: NSM_SERVICE_NAMES
+            value: "send-t-m1-serv"
+          - name: NSM_LOG_LEVEL
+            value: TRACE
+          - name: NSM_CIDR_PREFIX
+            value: 172.16.1.100/31
+          - name: NSM_NAME
+            value: "10send-t-m1-serv"
+          - name: NSM_CONNECT_TO
+            value: unix:///var/lib/networkservicemesh/nsm.io.sock 
+          - name: NSM_REGISTER_SERVICE
+            value: "false"
+        volumeMounts:
+          - name: spire-agent-socket
+            mountPath: /run/spire/sockets
+            readOnly: true
+          - name: nsm-socket
+            mountPath: /var/lib/networkservicemesh
+            readOnly: true
+        resources:
+          requests:
+            cpu: 100m
+            memory: 40Mi
+          limits:
+            memory: 80Mi
+            cpu: 200m
+      - name: cmd-nsc
+        image: ghcr.io/networkservicemesh/cmd-nsc:v1.11.0
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: SPIFFE_ENDPOINT_SOCKET
+            value: unix:///run/spire/sockets/agent.sock
+          - name: NSM_NETWORK_SERVICES 
+            value: kernel://m1-t-rec-serv/nsm-1
+          - name: NSM_REGISTER_SERVICE
+            value: "false"
+          - name: NSM_LOG_LEVEL
+            value: TRACE
+          - name: NSM_CONNECT_TO
+            value: unix:///var/lib/networkservicemesh/nsm.io.sock
+          - name: NSM_LIVENESSCHECKENABLED
+            value: "false"
+        volumeMounts:
+          - name: spire-agent-socket
+            mountPath: /run/spire/sockets
+            readOnly: true
+          - name: nsm-socket
+            mountPath: /var/lib/networkservicemesh
+            readOnly: true
+        resources:
+          requests:
+            cpu: 100m
+            memory: 40Mi
+          limits:
+            memory: 80Mi
+            cpu: 200m
+      - name: middlebox1
+        image: nephilimboy/router_sfc
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - NET_ADMIN
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 830
+        - containerPort: 8000
+        command: ["/bin/bash", "-c", "trap : TERM INT; sleep infinity & wait"]
+        resources:
+          requests:
+            cpu: 200m
+            memory: 200Mi
+          limits:
+            memory: 700Mi
+            cpu: 400m
+      volumes:
+      - name: spire-agent-socket
+        hostPath:
+          path: /run/spire/sockets
+          type: Directory
+      - name: nsm-socket
+        hostPath:
+          path: /var/lib/networkservicemesh
+          type: DirectoryOrCreate

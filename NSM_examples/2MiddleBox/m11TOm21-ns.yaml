@@ -1,0 +1,7 @@
+---
+apiVersion: networkservicemesh.io/v1
+kind: NetworkService
+metadata:
+  name: m11-t-m21-serv
+spec:
+  payload: ETHERNET
